@@ -140,8 +140,8 @@ server <- function(input, output)
     Data$Orig_Table <- switch(Data$File_Type,
       "csv" = read.csv(input$Data_Set_File$datapath),
       "txt" = read.table(input$Data_Set_File$datapath),
-      "xls" = as.data.frame(read_xls(input$Data_Set_File$datapath, 1)),
-      "xlsx" = as.data.frame(read_xlsx(input$Data_Set_File$datapath, 1)),
+      "xls" = as.data.frame(read_excel(input$Data_Set_File$datapath, 1)),
+      "xlsx" = as.data.frame(read_excel(input$Data_Set_File$datapath, 1)),
       "rda" = get(load(input$Data_Set_File$datapath)),
       "rdata" = get(load(input$Data_Set_File$datapath))
     )
@@ -876,47 +876,26 @@ ui <- navbarPage(
   
   tabPanel(
     "Information",
-    fluidPage(
-      tags$h4("Developed by:"),
-      tags$div(
-        tags$a(
-          href = "http://ppw.kuleuven.be/home/english/research/mesrg", 
-          "Methodology of Educational Sciences Research Group"
-        ),
-        "and",
-        tags$a(href = "http://ppw.kuleuven.be/ogp/generalinformation", "Health Psychology Research Group"),
-        tags$br(),
-        "Faculty of Psychology and Educational Sciences",
-        tags$br(),
-        "KU Leuven"
+    
+    navlistPanel(
+      widths = c(2, 10),
+      
+      # Help
+      tabPanel(
+        "Help",
+        tabsetPanel(
+          tabPanel("Getting started", includeMarkdown("help.md")),
+          tabPanel("Design", includeMarkdown("design.md")),
+          tabPanel("Data", includeMarkdown("data.md")),
+          tabPanel("Visual Analysis", includeMarkdown("visual.md")),
+          tabPanel("Randomization Test", includeMarkdown("randomization.md")),
+          tabPanel("Meta-Analysis", includeMarkdown("meta.md"))
+        )
       ),
-      tags$br(),
       
-      tags$h4("Documentation:"),
-      tags$div(
-        "Detailed information regarding the functions implemented in this application can be found in",
-        tags$a(href = "https://cran.r-project.org/package=SCRT", "SCRT"),
-        ",",
-        tags$a(href = "https://cran.r-project.org/package=SCVA", "SCVA"),
-        "and",
-        tags$a(href = "https://cran.r-project.org/package=SCMA", "SCMA"),
-        "R packages."
-      ),
-      tags$br(),
+      # About SCDA and authors
+      tabPanel("About", fluidPage(includeMarkdown("about.md")))
       
-      tags$h4("Sample data:"),
-      tags$a(href = "AB.rda", "Sample AB phase design data"),
-      tags$br(),
-      tags$a(href = "pvalues.txt", "Sample p-values"),
-      tags$br(),
-      tags$br(),
-      
-      tags$h4("Contacts:"),
-      tags$a(href = "http://ppw.kuleuven.be/home/english/research/mesrg/staff-mesrg/00015697", "Patrick Onghena"),
-      tags$br(),
-      tags$a(href = "http://ppw.kuleuven.be/home/english/research/mesrg/staff-mesrg/00112260", "Tamal Kumar De"),
-      tags$br(),
-      tags$a(href = "http://ppw.kuleuven.be/home/english/research/mesrg/staff-mesrg/00098719", "Bart Michiels")
     )
   )
   
