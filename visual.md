@@ -4,7 +4,7 @@ The Visual Analysis tab contains functions that help in plotting the observed da
 
 * **Plot measure of central tendency**: A measure of central tendency ((trimmed) mean, (broadened) median, M-estimator) is plotted as a horizontal reference line superimposed on the raw time series data.
 
-* **Plot estimate of variability**: Information about variability in the data is displayed by three methods. For all these methods, the influence of outliers may be lessend by using a trimmed range, in which only a sample of the data set is used.
+* **Plot estimate of variability**: Information about variability in the data is displayed by three methods. For all these methods, the influence of outliers may be lessened by using a trimmed range, in which only a sample of the data set is used.
     - Range bar graphs consist of a vertical line for each phase, created by connecting three points: an estimate of central tendency ((trimmed) mean, (broadened) median, M-estimator), the minimum and the maximum. 
     - Range lines consist of a pair of lines parallel to the X-axis, passing through the lowest and highest values for each phase, and superimposed on the raw data. 
     - Trended ranges display changes in variability within phases.
@@ -26,7 +26,7 @@ The following parameters may need to be set for the functions in Visual Analysis
 
 * **A1 phase label**, **B1 phase label**, **A2 phase label** and **B2 phase label**: Only required for *ABA Phase Design* and *ABAB Phase Design*. These options can be used to specify labels for the first baseline phase, the first treatment phase, the second baseline phase and the second treatment phase respectively in the plot.
 
-* **Y-axis minimum** and **Y-axis maximum**: Y-axis range: Y-axis minimum limit and Y-axis maximum limit respectively. If left empty, they will be inferred from the data. The values are co-dependant, hence either both should be left empty, or both should be assigned a value.
+* **Y-axis minimum** and **Y-axis maximum**: Y-axis range: Y-axis minimum limit and Y-axis maximum limit respectively. If left empty, they will be inferred from the data. The values are co-dependent, hence either both should be left empty, or both should be assigned a value.
 
 * **Legend X-coord** and **Legend X-coord**: Only required for certain plots of *Completely Randomized Design*, *Randomized Block Design*, *Alternating Treatments Design* and *User Specified Design*. Legend location within plot: the X-coordinate and Y-coordinate for the top left corner of the legend can be specified.
 
@@ -44,6 +44,6 @@ The following parameters may need to be set for the functions in Visual Analysis
 
 ##### **References**
 
-Bult&eacute;, I., & Onghena, P. (2012). When the truth hits you between the eyes: A software tool for the visual analysis of single-case experimental data. *Methodology, 8*, 104-114. doi:10.1027/1614-2241/a000042.
+Bult&eacute;, I., & Onghena, P. (2012). When the truth hits you between the eyes: A software tool for the visual analysis of single-case experimental data. *Methodology, 8*, 104-114. [doi:10.1027/1614-2241/a000042](https://www.researchgate.net/publication/254735695_When_the_Truth_Hits_You_Between_the_Eyes_A_Software_Tool_for_the_Visual_Analysis_of_Single-Case_Experimental_Data).
 
 Wilcox, R.R. (2005). *Introduction to robust estimation and hypothesis testing (2nd ed.)*. San Diego, CA: Elsevier Academic Press.

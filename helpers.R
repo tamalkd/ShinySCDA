@@ -230,10 +230,10 @@ SCRT_Random_Dist_func <- function(Widget_Name)
 {
   return(selectInput(
     Widget_Name,
-    "Select the randomization distrbution",
+    "Select the randomization distribution",
     list(
       "Systematic randomization distribution" = "systematic", 
-      "Monte Carlo randomization distrubution" = "random"
+      "Monte Carlo randomization distribution" = "random"
     )
   ))
 }
