@@ -81,7 +81,10 @@ server <- function(input, output)
   })
   output$SCRTD2_Download <- downloadHandler(
     filename = "assignments.txt",
-    content = function(file) {write.table(SCRTD2_Result(), file = file, col.names = FALSE, row.names = FALSE)}
+    content = function(file) 
+    {
+      write.table(SCRTD2_Result(), file = file, col.names = FALSE, row.names = FALSE, eol = "\r\n")
+    }
   )
   
   output$SCRTD2_Result <- renderTable({
@@ -437,7 +440,10 @@ server <- function(input, output)
   })
   output$SCRTA2_Download <- downloadHandler(
     filename = "distribution.txt",
-    content = function(file) {write.table(SCRTA2_Result(), file = file, col.names = FALSE, row.names = FALSE)}
+    content = function(file) 
+    {
+      write.table(SCRTA2_Result(), file = file, col.names = FALSE, row.names = FALSE, eol = "\r\n")
+    }
   )
   
   output$SCRTA2_Result <- renderTable({
