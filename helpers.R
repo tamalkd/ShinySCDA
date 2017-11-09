@@ -246,29 +246,6 @@ SCRT_Num_MonteCarlo_func <- function(Widget_Name, Random_Dist)
   return()
 }  
 
-SCRT_YesNo_Buttons_func <- function(Widget_Name, Label = "Save?")
-{
-  return(radioButtons(
-    Widget_Name, 
-    Label, 
-    list("Yes" = "yes", "No" = "no"), 
-    selected = "no", 
-    inline = TRUE
-  ))
-}
-  
-SCRT_Save_Info_func <- function(Save_Input)
-{
-  if(Save_Input == "yes")
-    return(paste(
-      "A file select window will appear after you click on \'Submit\'.",
-      "You can create a new text file or select an existing text file in a folder of your choice to save the output.",
-      sep = " "
-    ))
-  
-  return("")
-}
-
 SCDA_Validate_Data_func <- function(Data_Table)
 {
   validate(need(Data_Table, "Please upload observed data in \'Data\' tab before analysis."))
@@ -278,7 +255,7 @@ SCRT_Validate_Size_func <- function(Output_Table, Threshold = 1000)
 {
   validate(need(
     NROW(Output_Table) <= Threshold, 
-    "Table too large to be displayed. Please use the option to save table to file."
+    "Table too large to be displayed. Please use the download button to save the table in a text file."
   ))
 }
 

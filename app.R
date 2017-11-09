@@ -61,7 +61,6 @@ server <- function(input, output)
     Params$Design_Type,
     Params$SCRT_Extra_Input
   )})
-  output$SCRTD2_Save_Info <- renderText({SCRT_Save_Info_func(input$SCRTD2_Save)})
   
   SCRTD2_Result <- eventReactive(input$SCRTD2_Submit, {
     Params$Design_Type <- input$SCRTD2_Design_Type
@@ -72,11 +71,19 @@ server <- function(input, output)
       design = input$SCRTD2_Design_Type, 
       MT = input$SCRTD2_Num_MT, 
       limit = input$SCRTD2_Extra_Input, 
-      save = input$SCRTD2_Save,
       starts = input$SCRTD2_Extra_Input$datapath,
       assignments = input$SCRTD2_Extra_Input$datapath
     ))
   })
+  
+  observeEvent(input$SCRTD2_Submit, {
+    output$SCRTD2_Download_UI <- renderUI({downloadButton("SCRTD2_Download", "Download assignments")})
+  })
+  output$SCRTD2_Download <- downloadHandler(
+    filename = "assignments.txt",
+    content = function(file) {write.table(SCRTD2_Result(), file = file, col.names = FALSE, row.names = FALSE)}
+  )
+  
   output$SCRTD2_Result <- renderTable({
     SCRT_Validate_Size_func(SCRTD2_Result())
     SCRTD2_Result()
@@ -362,7 +369,6 @@ server <- function(input, output)
     Params$Custom_Statistic
   )})
   output$SCRTA2_Num_MC_UI <- renderUI({SCRT_Num_MonteCarlo_func("SCRTA2_Num_MC", input$SCRTA2_Random_Dist)})
-  output$SCRTA2_Save_Info <- renderText({SCRT_Save_Info_func(input$SCRTA2_Save)})
   
   SCRTA2_Result <- eventReactive(input$SCRTA2_Button, {
     withProgress(
@@ -384,7 +390,6 @@ server <- function(input, output)
             limit = input$SCRTA2_Extra_Input,
             starts = input$SCRTA2_Extra_Input$datapath,
             assignments = input$SCRTA2_Extra_Input$datapath,
-            save = input$SCRTA2_Save,
             data = Data$Table
           ),
           "random" = distribution.random(
@@ -394,7 +399,6 @@ server <- function(input, output)
             starts = input$SCRTA2_Extra_Input$datapath,
             assignments = input$SCRTA2_Extra_Input$datapath,
             number = input$SCRTA2_Num_MC,
-            save = input$SCRTA2_Save,
             data = Data$Table
           )
         )
@@ -427,6 +431,15 @@ server <- function(input, output)
     )
     abline(v = SCRTA2_Statistic(), col = "blue")
   })
+  
+  observeEvent(input$SCRTA2_Button, {
+    output$SCRTA2_Download_UI <- renderUI({downloadButton("SCRTA2_Download", "Download distribution")})
+  })
+  output$SCRTA2_Download <- downloadHandler(
+    filename = "distribution.txt",
+    content = function(file) {write.table(SCRTA2_Result(), file = file, col.names = FALSE, row.names = FALSE)}
+  )
+  
   output$SCRTA2_Result <- renderTable({
     SCRT_Validate_Size_func(SCRTA2_Result())
     SCRTA2_Result()
@@ -551,13 +564,11 @@ ui <- navbarPage(
             uiOutput("SCRTD2_Design_Type_UI"),
             uiOutput("SCRTD2_Extra_Input_UI"),
             uiOutput("SCRTD2_Num_MT_UI"),
-            SCRT_YesNo_Buttons_func("SCRTD2_Save", "Save possible assignments?"),
-            textOutput("SCRTD2_Save_Info"),
-            tags$br(),
             actionButton("SCRTD2_Submit", "Submit")
           ),
           mainPanel(
             tags$h4("Result"),
+            uiOutput("SCRTD2_Download_UI"),
             tableOutput("SCRTD2_Result")
           )
         )
@@ -774,15 +785,13 @@ ui <- navbarPage(
             uiOutput("SCRTA2_Custom_Stat_UI"),
             SCRT_Random_Dist_func("SCRTA2_Random_Dist"),
             uiOutput("SCRTA2_Num_MC_UI"),
-            SCRT_YesNo_Buttons_func("SCRTA2_Save", "Save distribution?"),
-            textOutput("SCRTA2_Save_Info"),
-            tags$br(),
             actionButton("SCRTA2_Button", "Submit")
           ),
           mainPanel(
             tags$h4("Plot"),
             plotOutput("SCRTA2_Plot"),
             tags$h4("Table"),
+            uiOutput("SCRTA2_Download_UI"),
             tableOutput("SCRTA2_Result")
           )
         )
