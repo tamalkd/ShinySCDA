@@ -26,8 +26,6 @@ The following parameters may need to be set for the functions in Randomization T
 
 * **Monte Carlo: Number of randomizations**: Only required if *Monte Carlo randomization distribution* is selected. Number of randomizations required.
 
-* **Save distribution?**: Only required for function *Randomization distribution*. Save the randomization distribution to a file or just see them as output in the web app. The default is *No*, which only displays the randomization distribution in the web app. If *Yes* is selected, a file select window will appear after clicking on *Submit*, a new text file can be created or an existing text file can be selected in any folder to save the output.
-
 ##### **References**
 
 Bult&eacute;, I., & Onghena, P. (2008). An R package for single-case randomization tests. *Behavior Research Methods, 40*, 467-478. [doi:10.3758/BRM.40.2.467](https://link.springer.com/article/10.3758/BRM.40.2.467).

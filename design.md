@@ -20,8 +20,6 @@ The following parameters may need to be set for the functions in Design tab.
 
 * **User Specified Design: Select text file containing possible assignments**: Only required for *User Specified Design*. Text file where all the possible assignments can be found. 
 
-* **Save possible assignments?**: Only required for function *Display all possible assignments*. Save the possible assignments to a file or just see them as output in the web app. The default is *No*, which only displays the possible assignments in the web app. If *Yes* is selected, a file select window will appear after clicking on *Submit*, a new text file can be created or an existing text file can be selected in any folder to save the output.
-
 ##### **References**
 
 Bult&eacute;, I., & Onghena, P. (2008). An R package for single-case randomization tests. *Behavior Research Methods, 40*, 467-478. [doi:10.3758/BRM.40.2.467](https://link.springer.com/article/10.3758/BRM.40.2.467).
