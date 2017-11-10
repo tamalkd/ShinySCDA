@@ -851,7 +851,9 @@ ui <- navbarPage(
                 "PND (expected increase)" = "PND+",
                 "PND (expected decrease)" = "PND-",
                 "PEM (expected increase)" = "PEM+",
-                "PEM (expected decrease)" = "PEM-"
+                "PEM (expected decrease)" = "PEM-",
+                "NAP (expected increase)" = "NAP+",
+                "NAP (expected decrease)" = "NAP-"
               )
             ),
             actionButton("SCMA1_Button", "Submit")
