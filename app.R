@@ -1,6 +1,8 @@
 library(shiny)
 library(shinythemes)
 library(readxl)
+library(graphics)
+library(utils)
 library(markdown)
 
 library(SCRT)
