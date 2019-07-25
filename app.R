@@ -4,6 +4,7 @@ library(readxl)
 library(graphics)
 library(utils)
 library(markdown)
+library(plotly)
 
 library(SCRT)
 library(SCVA)
@@ -198,7 +199,10 @@ server <- function(input, output)
       data = Data$Table
     )
   })
-  output$SCVA1_Plot <- renderPlot({SCVA1_Plot()})
+  output$SCVA1_Plot <- renderPlot(
+    height = eventReactive(input$SCVA1_Button, {SCVA_Plot_Height_func(input$SCVA1_Design_Type, Data$Table)}), 
+    {SCVA1_Plot()}
+  )
   
   # Plot measure of central tencency
   output$SCVA2_Design_Type_UI <- renderUI({SCDA_Design_Dropdown_func("SCVA2_Design_Type", Params$Design_Type)})
@@ -233,7 +237,10 @@ server <- function(input, output)
       data = Data$Table
     )
   })
-  output$SCVA2_Plot <- renderPlot({SCVA2_Plot()})
+  output$SCVA2_Plot <- renderPlot(
+    height = eventReactive(input$SCVA2_Button, {SCVA_Plot_Height_func(input$SCVA2_Design_Type, Data$Table)}),
+    {SCVA2_Plot()}
+  )
   
   # Plot estimate of variability
   output$SCVA3_Design_Type_UI <- renderUI({SCDA_Design_Dropdown_func("SCVA3_Design_Type", Params$Design_Type)})
@@ -278,7 +285,10 @@ server <- function(input, output)
       data = Data$Table
     )
   })
-  output$SCVA3_Plot <- renderPlot({SCVA3_Plot()})
+  output$SCVA3_Plot <- renderPlot(
+    height = eventReactive(input$SCVA3_Button, {SCVA_Plot_Height_func(input$SCVA3_Design_Type, Data$Table)}),
+    {SCVA3_Plot()}
+  )
   
   # Plot estimate of trend
   output$SCVA4_Design_Type_UI <- renderUI({SCDA_Design_Dropdown_func("SCVA4_Design_Type", Params$Design_Type)})
@@ -322,7 +332,46 @@ server <- function(input, output)
       data = Data$Table
     )
   })
-  output$SCVA4_Plot <- renderPlot({SCVA4_Plot()})
+  output$SCVA4_Plot <- renderPlot(
+    height = eventReactive(input$SCVA4_Button, {SCVA_Plot_Height_func(input$SCVA4_Design_Type, Data$Table)}),
+    {SCVA4_Plot()}
+  )
+  
+  # Plot interactive graph
+  output$SCVA5_Design_Type_UI <- renderUI({SCDA_Design_Dropdown_func("SCVA5_Design_Type", Params$Design_Type)})
+  output$SCVA5_Treatment_Label_UI <- renderUI({SCDA_Treatment_Labels_func(
+    "SCVA5", 
+    input$SCVA5_Design_Type, 
+    Params$Treatment_Labels
+  )})
+  output$SCVA5_YRange_UI <- renderUI({SCVA_Min_Max_UI_func(
+    "SCVA5_YRange", 
+    Min_Label = "Y-axis minimum",
+    Max_Label = "Y-axis maximum"
+  )})
+  output$SCVA5_LegendXY_UI <- renderUI({SCVA_LegendXY_func("SCVA5_LegendXY", Data$Table, input$SCVA5_Design_Type)})
+  
+  SCVA5_Plot <- eventReactive(input$SCVA5_Button, {
+    SCDA_Validate_Data_func(Data$Table)
+    SCVA_Validate_Range_func(input$SCVA5_YRange_Min, input$SCVA5_YRange_Max)
+    Params$Design_Type <- input$SCVA5_Design_Type
+    Params$Treatment_Labels <- SCDA_Get_User_Labels_func("SCVA5", input)
+    
+    graphly(
+      design = input$SCVA5_Design_Type, 
+      xlab = input$SCVA5_Xlabel,
+      ylab = input$SCVA5_Ylabel,
+      ylim = if(is.na(input$SCVA5_YRange_Min)) NULL else c(input$SCVA5_YRange_Min, input$SCVA5_YRange_Max),
+      labels = Params$Treatment_Labels,
+      data = Data$Table
+    )
+  })
+  
+  output$SCVA5_Plot <- renderPlotly({SCVA5_Plot()})
+  output$SCVA5_Plot_UI <- renderUI({plotlyOutput(
+    "SCVA5_Plot", 
+    height = paste(SCVA_Plot_Height_func(input$SCVA5_Design_Type, Data$Table), "px", sep = "")
+  )})
   
   ########################################################
   # Randomization Test
@@ -535,7 +584,7 @@ server <- function(input, output)
 
 ui <- navbarPage( 
   theme = shinytheme("flatly"),
-  "Single Case Data Analysis",
+  "Single Case Data Analysis (v2.0)",
   
   ########################################################
   # Design
@@ -748,6 +797,26 @@ ui <- navbarPage(
           mainPanel(
             tags$h4("Plot"),
             plotOutput("SCVA4_Plot")
+          )
+        )
+      ),
+      
+      # Plot interactive graph
+      tabPanel(
+        "Plot interactive graph",
+        sidebarLayout(
+          sidebarPanel(
+            uiOutput("SCVA5_Design_Type_UI"),
+            textInput("SCVA5_Xlabel", "X-axis label", "Measurement Times"),
+            textInput("SCVA5_Ylabel", "Y-axis label", "Scores"),
+            uiOutput("SCVA5_Treatment_Label_UI"),
+            uiOutput("SCVA5_YRange_UI"),
+            uiOutput("SCVA5_LegendXY_UI"),
+            actionButton("SCVA5_Button", "Plot")
+          ),
+          mainPanel(
+            tags$h4("Plot"),
+            uiOutput("SCVA5_Plot_UI")
           )
         )
       )

@@ -271,3 +271,15 @@ SCVA_Validate_Range_func <- function(Minimum, Maximum)
     "Please ensure either both Minimum and Maximum values for Y-axis range are specified or both are empty."
   ))
 }
+
+SCVA_Plot_Height_func <- function(Design_Type, Data_Table)
+{
+  if(Design_Type == "MBD")
+  {
+    N <- ncol(Data_Table) / 2
+    if(N > 2)
+      return(N * 200)
+  }
+  
+  return(480)
+}
