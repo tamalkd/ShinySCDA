@@ -14,6 +14,8 @@ The Visual Analysis tab contains functions that help in plotting the observed da
     - Regression lines superimpose a linear function on the raw data by means of least squares regression, the split-middle method or the resistant trend line fitting method.
     - The presence of a nonlinear trend can be displayed with running medians.
 
+* **Plot interactive graph**: The observed single-case data are plotted using plotly, a web-based interactive charting library.
+
 The following parameters may need to be set for the functions in Visual Analysis tab.
 
 * **Select the design type**: Type of single-case design. The options are *AB Phase Design*, *ABA Phase Design*, *ABAB Phase Design*, *Completely Randomized Design*, *Randomized Block Design*, *Alternating Treatments Design*, *Multiple Baseline Design* and *User Specified Design*.

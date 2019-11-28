@@ -128,16 +128,23 @@ server <- function(input, output)
   # Set data
   Data <- reactiveValues(Orig_Table = NULL, Table = NULL, File_Type = NULL)
   output$Data_Design_Type_UI <- renderUI({SCDA_Design_Dropdown_func("Data_Design_Type", Params$Design_Type)})
-  output$Data_File_Type_UI <- renderUI({
+  
+  observeEvent(input$Data_Set_File, {
+    Data$File_Type <- tolower(tail(unlist(strsplit(input$Data_Set_File$name, ".", fixed = TRUE)), n = 1))
+  })
+  
+  output$Data_Col_Header_UI <- renderUI({
     if(!is.null(input$Data_Set_File))
     {
-      Data$File_Type <- tolower(tail(unlist(strsplit(input$Data_Set_File$name, ".", fixed = TRUE)), n = 1))
-      if(!Data$File_Type %in% c("csv", "txt", "xls", "xlsx", "rdata", "rda"))
-        selectInput(
-          "Data_File_Type", 
-          "Unable to determine file type automatically. Please select file type", 
-          list("CSV File" = "csv", "Excel File" = "xls", "Text File" = "txt", "R Dataset" = "rdata")
-        )
+      if(Data$File_Type %in% c("csv", "txt", "xls", "xlsx"))
+        checkboxInput("Data_Col_Header", "File contains column headers", value = Data$File_Type != "txt")
+    }
+  })
+  output$Data_Sheet_Idx_UI <- renderUI({
+    if(!is.null(input$Data_Set_File))
+    {
+      if(Data$File_Type %in% c("xls", "xlsx"))
+        numericInput("Data_Sheet_Idx", "Sheet Number", 1)
     }
   })
   output$Data_Treatment_Label_UI <- renderUI({SCDA_Treatment_Labels_func("Data", input$Data_Design_Type)})
@@ -147,17 +154,20 @@ server <- function(input, output)
     Params$Design_Type <- input$Data_Design_Type
     Params$Treatment_Labels <- SCDA_Get_User_Labels_func("Data", input)
     
-    Data$File_Type <- if(Data$File_Type %in% c("csv", "txt", "xls", "xlsx", "rdata", "rda")) 
-      Data$File_Type 
-    else input$Data_File_Type
+    if(!Data$File_Type %in% c("csv", "txt", "xls", "xlsx", "rdata", "rda"))
+      stop("Unsupported file type. Only Text, Excel, CSV, and R data files are supported!")
     
     Data$Orig_Table <- switch(Data$File_Type,
-      "csv" = read.csv(input$Data_Set_File$datapath),
-      "txt" = read.table(input$Data_Set_File$datapath),
-      "xls" = as.data.frame(read_excel(input$Data_Set_File$datapath, 1)),
-      "xlsx" = as.data.frame(read_excel(input$Data_Set_File$datapath, 1)),
+      "csv" = read.csv(input$Data_Set_File$datapath, header = input$Data_Col_Header),
+      "txt" = read.table(input$Data_Set_File$datapath, header = input$Data_Col_Header),
       "rda" = get(load(input$Data_Set_File$datapath)),
-      "rdata" = get(load(input$Data_Set_File$datapath))
+      "rdata" = get(load(input$Data_Set_File$datapath)),
+      "xls" = as.data.frame(read_excel(
+        input$Data_Set_File$datapath, sheet = input$Data_Sheet_Idx, col_names = input$Data_Col_Header
+      )),
+      "xlsx" = as.data.frame(read_excel(
+        input$Data_Set_File$datapath, sheet = input$Data_Sheet_Idx, col_names = input$Data_Col_Header
+      ))
     )
     
     Data$Table <- SCDA_Data_Relabel_func(input$Data_Design_Type, Data$Orig_Table, Params$Treatment_Labels)
@@ -349,7 +359,6 @@ server <- function(input, output)
     Min_Label = "Y-axis minimum",
     Max_Label = "Y-axis maximum"
   )})
-  output$SCVA5_LegendXY_UI <- renderUI({SCVA_LegendXY_func("SCVA5_LegendXY", Data$Table, input$SCVA5_Design_Type)})
   
   SCVA5_Plot <- eventReactive(input$SCVA5_Button, {
     SCDA_Validate_Data_func(Data$Table)
@@ -584,7 +593,7 @@ server <- function(input, output)
 
 ui <- navbarPage( 
   theme = shinytheme("flatly"),
-  "Single Case Data Analysis (v2.0)",
+  "Single Case Data Analysis (v2.1)",
   
   ########################################################
   # Design
@@ -667,7 +676,8 @@ ui <- navbarPage(
           sidebarPanel(
             uiOutput("Data_Design_Type_UI"),
             fileInput("Data_Set_File", "Select data file"),
-            uiOutput("Data_File_Type_UI"),
+            uiOutput("Data_Col_Header_UI"),
+            uiOutput("Data_Sheet_Idx_UI"),
             uiOutput("Data_Treatment_Label_UI"),
             actionButton("Data_Set_Load", "Load")
           ),
@@ -811,7 +821,6 @@ ui <- navbarPage(
             textInput("SCVA5_Ylabel", "Y-axis label", "Scores"),
             uiOutput("SCVA5_Treatment_Label_UI"),
             uiOutput("SCVA5_YRange_UI"),
-            uiOutput("SCVA5_LegendXY_UI"),
             actionButton("SCVA5_Button", "Plot")
           ),
           mainPanel(
