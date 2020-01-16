@@ -163,10 +163,10 @@ server <- function(input, output)
       "rda" = get(load(input$Data_Set_File$datapath)),
       "rdata" = get(load(input$Data_Set_File$datapath)),
       "xls" = as.data.frame(read_excel(
-        input$Data_Set_File$datapath, sheet = input$Data_Sheet_Idx, col_names = input$Data_Col_Header
+        input$Data_Set_File$datapath, sheet = input$Data_Sheet_Idx, col_names = input$Data_Col_Header, na = "NA"
       )),
       "xlsx" = as.data.frame(read_excel(
-        input$Data_Set_File$datapath, sheet = input$Data_Sheet_Idx, col_names = input$Data_Col_Header
+        input$Data_Set_File$datapath, sheet = input$Data_Sheet_Idx, col_names = input$Data_Col_Header, na = "NA"
       ))
     )
     
@@ -593,7 +593,7 @@ server <- function(input, output)
 
 ui <- navbarPage( 
   theme = shinytheme("flatly"),
-  "Single Case Data Analysis (v2.2)",
+  "Single Case Data Analysis (v2.3)",
   
   ########################################################
   # Design
