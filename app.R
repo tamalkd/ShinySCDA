@@ -593,7 +593,7 @@ server <- function(input, output)
 
 ui <- navbarPage( 
   theme = shinytheme("flatly"),
-  "Single Case Data Analysis (v2.3)",
+  "Single Case Data Analysis (v2.4)",
   
   ########################################################
   # Design
