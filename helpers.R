@@ -208,7 +208,7 @@ SCRT_Test_Statistic_func <- function(Widget_Name, Design_Type, selected = "A-B")
   {
     Statistics <- c("A-B", "B-A", "|A-B|")
     if(Design_Type == "ABA" || Design_Type == "ABAB")
-      Statistics <- c(Statistics, "PA-PB", "PB-PA", "|PA-PB|", "AA-BB", "BB-AA", "|AA-BB|")
+      Statistics <- c(Statistics, "PA-PB", "PB-PA", "|PA-PB|")
     
     Statistics <- c(Statistics, "Custom")
     return(selectInput(Widget_Name, "Select the test statistic", Statistics, selected = selected))
