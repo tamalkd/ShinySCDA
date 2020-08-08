@@ -144,7 +144,7 @@ server <- function(input, output)
     if(!is.null(input$Data_Set_File))
     {
       if(Data$File_Type %in% c("xls", "xlsx"))
-        numericInput("Data_Sheet_Idx", "Sheet Number", 1)
+        numericInput("Data_Sheet_Idx", "Sheet index number", 1)
     }
   })
   output$Data_Treatment_Label_UI <- renderUI({SCDA_Treatment_Labels_func("Data", input$Data_Design_Type)})
@@ -565,7 +565,7 @@ server <- function(input, output)
   output$SCRTA3_Result <- renderText({withProgress(message = "Calculating...", SCRTA3_Result())})
   
   ########################################################
-  # Meta-Analysis
+  # Further Analysis
   ########################################################
   
   # Calculate effect size
@@ -593,7 +593,7 @@ server <- function(input, output)
 
 ui <- navbarPage( 
   theme = shinytheme("flatly"),
-  "Single Case Data Analysis (v2.5)",
+  "Shiny SCDA (v2.6)",
   
   ########################################################
   # Design
@@ -671,7 +671,7 @@ ui <- navbarPage(
       
       # Set Data
       tabPanel(
-        "Set Data",
+        "Set data",
         sidebarLayout(
           sidebarPanel(
             uiOutput("Data_Design_Type_UI"),
@@ -907,18 +907,18 @@ ui <- navbarPage(
   ),
   
   ########################################################
-  # Meta-Analysis
+  # Further Analysis
   ########################################################
   
   tabPanel(
-    "Meta-Analysis",
+    "Further Analysis",
     
     navlistPanel(
       widths = c(2, 10),
       
-      # Calculate effect size
+      # Calculate effect size measure
       tabPanel(
-        "Calculate effect size",
+        "Calculate effect size measure",
         sidebarLayout(
           sidebarPanel(
             uiOutput("SCMA1_Design_Type_UI"),
@@ -987,7 +987,7 @@ ui <- navbarPage(
           tabPanel("Data", includeMarkdown("data.md")),
           tabPanel("Visual Analysis", includeMarkdown("visual.md")),
           tabPanel("Randomization Test", includeMarkdown("randomization.md")),
-          tabPanel("Meta-Analysis", includeMarkdown("meta.md"))
+          tabPanel("Further Analysis", includeMarkdown("meta.md"))
         )
       ),
       

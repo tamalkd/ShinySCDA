@@ -1,6 +1,6 @@
 #### Welcome to the help section!
 
-This web app aims to makes it easy to design and analyze single-case experiments. It is possible to design single-case phase, alternation and multiple-baseline experiments, and conduct visual examination and randomization tests on data gathered by means of such designs. 
+The Shiny app for Single-Case Data Analysis (Shiny SCDA) aims to makes it easy to design and analyze single-case experiments. It is possible to design single-case phase, alternation and multiple-baseline experiments, and conduct visual examination and randomization tests on data gathered by means of such designs. 
 
 This section contains information on how to use the web app. The functions in this web app are organized into the following tabs based on a natural progression of functions needed over the course of conducting a single-case experiment.
 
@@ -8,7 +8,7 @@ This section contains information on how to use the web app. The functions in th
 * **Data**
 * **Visual Analysis**
 * **Randomization Test**
-* **Meta-Analysis**
+* **Further Analysis**
 
 Inside each tab, the navigation panel on the left can be used to select a function among those available.
 

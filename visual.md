@@ -46,6 +46,6 @@ The following parameters may need to be set for the functions in Visual Analysis
 
 ##### **References**
 
-Bult&eacute;, I., & Onghena, P. (2012). When the truth hits you between the eyes: A software tool for the visual analysis of single-case experimental data. *Methodology, 8*, 104-114. [doi:10.1027/1614-2241/a000042](https://www.researchgate.net/publication/254735695_When_the_Truth_Hits_You_Between_the_Eyes_A_Software_Tool_for_the_Visual_Analysis_of_Single-Case_Experimental_Data).
+Bult&eacute;, I., & Onghena, P. (2012). When the truth hits you between the eyes: A software tool for the visual analysis of single-case experimental data. *Methodology, 8*, 104-114. https://doi.org/10.1027/1614-2241/a000042
 
 Wilcox, R.R. (2005). *Introduction to robust estimation and hypothesis testing (2nd ed.)*. San Diego, CA: Elsevier Academic Press.

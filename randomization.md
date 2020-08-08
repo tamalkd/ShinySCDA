@@ -14,7 +14,7 @@ The following parameters may need to be set for the functions in Randomization T
 
 * **Maximum number of consecutive administrations of the same condition**: Only required for *Alternating Treatments Design*. The maximum number of consecutive administrations of the same condition (baseline or treatment) allowed.
 
-* **Multiple Baseline Design: Select text file containing possible start points**: Only required for *Multiple Baseline Design*. A text file containing all possible startpoints for treatment is required. In this startpoint file, each row should contain all possibilities for one unit, separated by a tab. The rows and columns should not be labeled.
+* **Multiple Baseline Design: Select text file containing possible start points**: Only required for *Multiple Baseline Design*. A text file containing all possible startpoints for treatment is required. In this startpoint file, each row should contain all possibilities for one unit, separated by a space or a tab. The rows and columns should not be labeled.
 
 * **User Specified Design: Select text file containing possible assignments**: Only required for *User Specified Design*. Text file where all the possible assignments can be found. In this file, each row should contain the sequence of conditions in one possible assignment. There should be one row for every possible assignment. The rows and columns should not be labeled.
 
@@ -28,9 +28,11 @@ The following parameters may need to be set for the functions in Randomization T
 
 ##### **References**
 
-Bult&eacute;, I., & Onghena, P. (2008). An R package for single-case randomization tests. *Behavior Research Methods, 40*, 467-478. [doi:10.3758/BRM.40.2.467](https://link.springer.com/article/10.3758/BRM.40.2.467).
+Bult&eacute;, I., & Onghena, P. (2008). An R package for single-case randomization tests. *Behavior Research Methods, 40*, 467-478. https://doi.org/10.3758/BRM.40.2.467
 
-Bult&eacute;, I., & Onghena, P. (2009). Randomization tests for multiple baseline designs: An extension of the SCRT-R package. *Behavior Research Methods, 41*, 477-485. [doi:10.3758/BRM.41.2.477](https://link.springer.com/article/10.3758/BRM.41.2.477).
+Bult&eacute;, I., & Onghena, P. (2009). Randomization tests for multiple baseline designs: An extension of the SCRT-R package. *Behavior Research Methods, 41*, 477-485. https://doi.org/10.3758/BRM.41.2.477
+
+De, T. K., Michiels, B., Tanious, R., & Onghena, P. (2020). Handling missing data in randomization tests for single-case experiments: A simulation study. *Behavior Research Methods, 52*(3), 1355–1370. https://doi.org/10.3758/s13428-019-01320-3
 
 Edgington, E.S., & Onghena, P. (2007). *Randomization tests (4th ed.)*. Boca Raton, FL: Chapman & Hall/CRC.
 
