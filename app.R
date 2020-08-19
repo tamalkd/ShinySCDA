@@ -95,7 +95,7 @@ server <- function(input, output)
     SCRTD2_Result()
   })
   
-  # Choose 1 possble assignment
+  # Choose 1 possible assignment
   output$SCRTD3_Design_Type_UI <- renderUI({SCDA_Design_Dropdown_func("SCRTD3_Design_Type", Params$Design_Type)})
   output$SCRTD3_Num_MT_UI <- renderUI({SCRT_Num_MT_func("SCRTD3_Num_MT", input$SCRTD3_Design_Type, Params$SCRT_Num_MT)})
   output$SCRTD3_Extra_Input_UI <- renderUI({SCRT_Extra_Input_func(
@@ -438,6 +438,14 @@ server <- function(input, output)
       message = "Calculating...", 
       {
         SCDA_Validate_Data_func(Data$Table)
+        SCRT_Check_Quantity_func(
+          input$SCRTA2_Random_Dist, 
+          input$SCRTA2_Design_Type, 
+          Data$Table, 
+          input$SCRTA2_Extra_Input,
+          input$SCRTA2_Num_MC
+        )
+        
         Params$Design_Type <- input$SCRTA2_Design_Type
         Params$SCRT_Extra_Input <- input$SCRTA2_Extra_Input
         Params$Test_Statistic <- input$SCRTA2_Test_Statistic
@@ -534,6 +542,14 @@ server <- function(input, output)
   
   SCRTA3_Result <- eventReactive(input$SCRTA3_Button, {
     SCDA_Validate_Data_func(Data$Table)
+    SCRT_Check_Quantity_func(
+      input$SCRTA3_Random_Dist, 
+      input$SCRTA3_Design_Type, 
+      Data$Table, 
+      input$SCRTA3_Extra_Input, 
+      input$SCRTA3_Num_MC
+    )
+    
     Params$Design_Type <- input$SCRTA3_Design_Type
     Params$SCRT_Extra_Input <- input$SCRTA3_Extra_Input
     Params$Test_Statistic <- input$SCRTA3_Test_Statistic
@@ -593,7 +609,7 @@ server <- function(input, output)
 
 ui <- navbarPage( 
   theme = shinytheme("flatly"),
-  "Shiny SCDA (v2.6)",
+  "Shiny SCDA (v2.7)",
   
   ########################################################
   # Design

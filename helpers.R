@@ -283,3 +283,41 @@ SCVA_Plot_Height_func <- function(Design_Type, Data_Table)
   
   return(480)
 }
+
+SCRT_Check_Quantity_func <- function(Random_Dist, Design_Type, Data_Table, Extra_Input, Num_MC)
+{
+  Threshold <- 10000
+  
+  if(Design_Type == "MBD")
+    Threshold <- max(1000, 2 * Threshold / ncol(Data_Table), na.rm = TRUE) 
+  
+  if(Random_Dist == "systematic")
+  {
+    Num_MT <- nrow(Data_Table)
+    
+    if(Design_Type == "ATD")
+    {
+      Threshold <- 2 * Threshold
+      Design_Type <- "CRD"
+    } 
+    
+    Num_quant <- quantity(
+      design = Design_Type, 
+      MT = Num_MT, 
+      limit = Extra_Input, 
+      starts = Extra_Input$datapath,
+      assignments = Extra_Input$datapath
+    )
+    
+    validate(need(
+      Num_quant <= Threshold, 
+      "Too many possible randomizations for this design! Please run a Monte Carlo randomization test."
+    ))
+  } else
+  {
+    validate(need(
+      Num_MC <= Threshold, 
+      sprintf("Please choose a maximum of %d Monte Carlo randomizations for this design!", Threshold)
+    ))
+  }
+}
