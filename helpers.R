@@ -317,7 +317,7 @@ SCRT_Check_Quantity_func <- function(Random_Dist, Design_Type, Data_Table, Extra
   {
     validate(need(
       Num_MC <= Threshold, 
-      sprintf("Please choose a maximum of %d Monte Carlo randomizations for this design!", Threshold)
+      sprintf("Please choose a maximum of %d Monte Carlo randomizations for this design!", round(Threshold))
     ))
   }
 }
