@@ -48,7 +48,7 @@ SCRT_Extra_Input_func <- function(Widget_Name, Design_Type, Num_MT, Prev_Design_
     else if(Design_Type == "MBD")
       return(fileInput(Widget_Name, "Multiple Baseline Design: Select text file containing possible start points"))
     else if(Design_Type == "Custom")
-      return(fileInput(Widget_Name, "User Specified Design: Select text file containing possible assignemnts"))
+      return(fileInput(Widget_Name, "User Specified Design: Select text file containing possible assignments"))
   }
   
   return()
@@ -317,7 +317,7 @@ SCRT_Check_Quantity_func <- function(Random_Dist, Design_Type, Data_Table, Extra
   {
     validate(need(
       Num_MC <= Threshold, 
-      sprintf("Please choose a maximum of %d Monte Carlo randomizations for this design!", Threshold)
+      sprintf("Please choose a maximum of %d Monte Carlo randomizations for this design!", round(Threshold))
     ))
   }
 }

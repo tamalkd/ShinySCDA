@@ -609,7 +609,7 @@ server <- function(input, output)
 
 ui <- navbarPage( 
   theme = shinytheme("flatly"),
-  "Shiny SCDA (v2.7)",
+  "Shiny SCDA (v2.8)",
   
   ########################################################
   # Design
